@@ -2,7 +2,7 @@ Add at least 3 Project features
 
 1. If a card is repeatedly clicked, the content of that card will be added. Otherwise Toast will display the message "Already Added".
 2. If the total credits are more than 20 then a toast message will appear. And the remaining credit hours will show zero.
-3. Total the prizes on each card.
+3. Added the total prize of each card.
 
 Discuss how you managed the state in your assignment project:
 
