@@ -4,13 +4,15 @@ import './App.css'
 import Header from './components/Header/Header'
 import Cards from './components/Cards/Cards'
 import Sidebars from './components/Sidebars/Sidebars';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
   const [courses, setCourses] = useState([]);
   const [prices, setPrices] = useState(0);
   const [credits, setCredits] = useState(0);
-  const [defaults, setDefaults] = useState(20);
+  const [defaults, setDefaults] = useState(0);
 
   const handleAddToCourse = card =>{
     const courseIndex = courses.findIndex((courseItem) => courseItem.id === card.id);
@@ -20,25 +22,26 @@ function App() {
       handleAddCredit(card);
     }
     else{
-      alert('Course Already added');
+      toast.warning("Already Added");
     }
   }
   const handleAddPrices = price =>{
     const newPrice = prices + parseInt(price.price)
-    console.log("price",newPrice);
     setPrices(newPrice)
   }
-
+  const defaultHour = 20
   const handleAddCredit = credit =>{
     const newCredit = credits + parseInt(credit.credit_hour)
     setCredits(newCredit)
-    if(newCredit < 20 ){
-      let newCredit = defaults - newCredit
-      console.log(" remaining",newCredit); 
-      setDefaults(newCredit)
+    if(newCredit <= 20 && newCredit >= 0){
+      let newCredits = defaultHour - newCredit
+      setDefaults(newCredits)
     }
     else{
-      setDefaults(0)
+      setDefaults(0);
+      toast.error(`Can't Added Credit`, {
+        position: toast.POSITION.TOP_RIGHT
+    });
     }
   }
   return (
@@ -46,7 +49,9 @@ function App() {
     <Header></Header>
     <div className='flex w-10/12 justify-around m-auto flex-wrap  '>
       <Cards handleAddToCourse ={handleAddToCourse}></Cards>
-      <Sidebars courses={courses} prices={prices} credits={credits} defaults={defaults}></Sidebars>
+      <Sidebars courses={courses} prices={prices} credits={credits} defaults={defaults} toast = {toast} ></Sidebars>
+      <ToastContainer theme="dark"></ToastContainer>
+      
     </div>
     </>
   )
