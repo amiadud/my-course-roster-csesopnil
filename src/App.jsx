@@ -20,7 +20,6 @@ function App() {
       setCourses([...courses, { ...card, quantity: 1 }]);
       handleAddPrices(card);
       handleAddCredit(card);
-      toast.success(`Course Added`);
     }
     else{
       toast.warning("Already Added");
