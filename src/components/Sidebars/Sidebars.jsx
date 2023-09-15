@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import Sidebar from '../Sidebar/Sidebar';
 
-const Sidebars = ({courses, prices, credits, remins}) => {
+const Sidebars = ({courses, prices, credits, defaults}) => {
     return (
         <div className="bg-white w-72 h-[50%] rounded-lg my-4">
             <div className='ml-4 my-2'>
-            <h2 className='text-blue-500 font-semibold my-2'>Credit Hour Remaining:{remins} hr</h2>
+            <h2 className='text-blue-500 font-semibold my-2'>Credit Hour Remaining:{defaults} hr</h2>
             <hr />
             <h2 className='text-xl font-semibold my-2'>Course Name</h2>
             {  

@@ -10,7 +10,7 @@ function App() {
   const [courses, setCourses] = useState([]);
   const [prices, setPrices] = useState(0);
   const [credits, setCredits] = useState(0);
-  const [remins, setRemins] = useState(0);
+  const [defaults, setDefaults] = useState(20);
 
   const handleAddToCourse = card =>{
     const courseIndex = courses.findIndex((courseItem) => courseItem.id === card.id);
@@ -24,26 +24,29 @@ function App() {
     }
   }
   const handleAddPrices = price =>{
-    setPrices(prices + price.price)
+    const newPrice = prices + parseInt(price.price)
+    console.log("price",newPrice);
+    setPrices(newPrice)
   }
 
   const handleAddCredit = credit =>{
-    const newCredit = credits + credit.credit_hour
+    const newCredit = credits + parseInt(credit.credit_hour)
     setCredits(newCredit)
-    remaining(credit)
-  }
-  const defaultCreditHours = 20;
-  const remaining = (remain) =>{
-    const difference = defaultCreditHours - remain.credit_hour;
-    setRemins(difference);
-    
+    if(newCredit < 20 ){
+      let newCredit = defaults - newCredit
+      console.log(" remaining",newCredit); 
+      setDefaults(newCredit)
+    }
+    else{
+      setDefaults(0)
+    }
   }
   return (
     <> 
     <Header></Header>
     <div className='flex w-10/12 justify-around m-auto flex-wrap  '>
-      <Cards handleAddToCourse ={handleAddToCourse} handleAddPrices = {handleAddPrices} handleAddCredit={handleAddCredit}></Cards>
-      <Sidebars courses={courses} prices={prices} credits={credits} remins={remins}></Sidebars>
+      <Cards handleAddToCourse ={handleAddToCourse}></Cards>
+      <Sidebars courses={courses} prices={prices} credits={credits} defaults={defaults}></Sidebars>
     </div>
     </>
   )
