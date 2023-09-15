@@ -12,7 +12,7 @@ function App() {
   const [courses, setCourses] = useState([]);
   const [prices, setPrices] = useState(0);
   const [credits, setCredits] = useState(0);
-  const [defaults, setDefaults] = useState(0);
+  const [remains, setRemains] = useState(0);
 
   const handleAddToCourse = card =>{
     const courseIndex = courses.findIndex((courseItem) => courseItem.id === card.id);
@@ -20,6 +20,7 @@ function App() {
       setCourses([...courses, { ...card, quantity: 1 }]);
       handleAddPrices(card);
       handleAddCredit(card);
+      toast.success(`Course Added`);
     }
     else{
       toast.warning("Already Added");
@@ -29,19 +30,17 @@ function App() {
     const newPrice = prices + parseInt(price.price)
     setPrices(newPrice)
   }
-  const defaultHour = 20
+  const defaultHour = 20;
   const handleAddCredit = credit =>{
     const newCredit = credits + parseInt(credit.credit_hour)
     setCredits(newCredit)
     if(newCredit <= 20 && newCredit >= 0){
       let newCredits = defaultHour - newCredit
-      setDefaults(newCredits)
+      setRemains(newCredits)
     }
     else{
-      setDefaults(0);
-      toast.error(`Can't Added Credit`, {
-        position: toast.POSITION.TOP_RIGHT
-    });
+      setRemains(0);
+      toast.error(`Can't Added Credit`);
     }
   }
   return (
@@ -49,7 +48,7 @@ function App() {
     <Header></Header>
     <div className='flex w-10/12 justify-around m-auto flex-wrap  '>
       <Cards handleAddToCourse ={handleAddToCourse}></Cards>
-      <Sidebars courses={courses} prices={prices} credits={credits} defaults={defaults} toast = {toast} ></Sidebars>
+      <Sidebars courses={courses} prices={prices} credits={credits} remains={remains} ></Sidebars>
       <ToastContainer theme="dark"></ToastContainer>
       
     </div>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
-import { FaBookOpen,FaDollarSign  } from "react-icons/fa";
+import { LiaDollarSignSolid  } from "react-icons/Lia";
+import { HiOutlineBookOpen  } from "react-icons/hi";
 
 const Card = ({card, handleAddToCourse}) => {
     const { title, cover, description, price, credit_hour } = card
@@ -12,8 +13,8 @@ const Card = ({card, handleAddToCourse}) => {
     <h2 className="font-bold my-2 text-lg">{title}</h2>
     <p className="text-sm">{description}</p>
     <div className="flex  justify-between items-center my-2 ">
-    <p className=" text-base flex gap-2 items-center"><FaDollarSign></FaDollarSign>Price : {price} USD</p>
-    <p className="flex gap-2 items-center"><FaBookOpen></FaBookOpen>Credit: {credit_hour}hr</p>
+    <p className=" text-base flex gap-2 items-center"><p className='text-xl'><LiaDollarSignSolid></LiaDollarSignSolid></p>Price : {price} USD</p>
+    <p className="flex gap-2 items-center"><p className='text-xl'><HiOutlineBookOpen></HiOutlineBookOpen></p>Credit: {credit_hour}hr</p>
     </div>
     <button onClick={() => handleAddToCourse(card) }  className=" btn btn-primary border-none outline-none transition-all w-full py-2 px-7 rounded-md bg-blue-500 text-white font">Select</button>
     </div>
