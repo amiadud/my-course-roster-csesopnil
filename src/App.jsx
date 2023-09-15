@@ -13,23 +13,30 @@ function App() {
   const [remins, setRemins] = useState(0);
 
   const handleAddToCourse = card =>{
-      const newCourses = [...courses, card];
-      setCourses(newCourses);
+    const courseIndex = courses.findIndex((courseItem) => courseItem.id === card.id);
+    if(courseIndex === -1){
+      setCourses([...courses, { ...card, quantity: 1 }]);
       handleAddPrices(card);
       handleAddCredit(card);
-   
+    }
+    else{
+      alert('Course Already added');
+    }
   }
   const handleAddPrices = price =>{
     setPrices(prices + price.price)
   }
 
   const handleAddCredit = credit =>{
-    setCredits(credits + credit.credit_hour)
-    remaining(credit);
+    const newCredit = credits + credit.credit_hour
+    setCredits(newCredit)
+    remaining(credit)
   }
-
-  const remaining = remain =>{
-    setRemins (credits - remain)
+  const defaultCreditHours = 20;
+  const remaining = (remain) =>{
+    const difference = defaultCreditHours - remain.credit_hour;
+    setRemins(difference);
+    
   }
   return (
     <> 
@@ -41,5 +48,9 @@ function App() {
     </>
   )
 }
-
+Cards.PropTypes = {
+  handleAddToCourse:PropTypes.func.isRequired,
+  handleAddPrices:PropTypes.func.isRequired,
+  handleAddCredit:PropTypes.func.isRequired
+}
 export default App

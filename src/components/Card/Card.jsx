@@ -7,7 +7,7 @@ const Card = ({card, handleAddToCourse}) => {
 
     return (
 <div className=" bg-white rounded-lg">
-    <div className="mx-4 my-4 ">
+    <div className="mx-4 my-4  ">
     <img width={'400px'} src={cover} className="rounded-xl" />
     <h2 className="font-bold my-2 text-lg">{title}</h2>
     <p className="text-sm">{description}</p>

@@ -15,7 +15,7 @@ const Cards = ({handleAddToCourse, handleAddPrices, handleAddCredit}) => {
 
     return (
         <div className="w-9/12 ">
-            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 mx-3 ">
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 my-4 ">
             {
                 cards.map( card => 
                 <Card 
