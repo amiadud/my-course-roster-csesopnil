@@ -17,9 +17,11 @@ function App() {
   const handleAddToCourse = card =>{
     const courseIndex = courses.findIndex((courseItem) => courseItem.id === card.id);
     if(courseIndex === -1){
-      setCourses([...courses, { ...card, quantity: 1 }]);
+      if(courses.length < 4){
+        setCourses([...courses, { ...card, quantity: 1 }]);
+      }
+      handleAddCredit(card)
       handleAddPrices(card);
-      handleAddCredit(card);
     }
     else{
       toast.warning("Already Added");
@@ -27,15 +29,20 @@ function App() {
   }
   const handleAddPrices = price =>{
     const newPrice = prices + parseInt(price.price)
-    setPrices(newPrice)
+    if(prices < 4){
+      setPrices(newPrice)
+    }
   }
   const defaultHour = 20;
   const handleAddCredit = credit =>{
     const newCredit = credits + parseInt(credit.credit_hour)
-    setCredits(newCredit)
+    if(newCredit <= 20){
+      setCredits(newCredit)
+    }
     if(newCredit <= 20 && newCredit >= 0){
       let newCredits = defaultHour - newCredit
       setRemains(newCredits)
+      
     }
     else{
       setRemains(0);
