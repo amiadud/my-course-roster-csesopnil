@@ -15,38 +15,43 @@ function App() {
   const [remains, setRemains] = useState(0);
 
   const handleAddToCourse = card =>{
+    const defaultHour = 20;
+    const handleAddCredit = credit =>{
+      const newCredit = credits + parseInt(credit.credit_hour)
+      if(newCredit > 20){
+        return toast.warning(`Not available remaining hour`)
+      }
+      else{
+        setCredits(newCredit);
+      }
+
+      
+      if(newCredit <= 20){
+        let newHours = defaultHour - newCredit
+        setRemains(newHours)
+      }
+      else{
+        setRemains(0);
+        toast.error(`Can't Added Credit`);
+      }
+    }
     const courseIndex = courses.findIndex((courseItem) => courseItem.id === card.id);
     if(courseIndex === -1){
       if(courses.length < 4){
-        setCourses([...courses, { ...card, quantity: 1 }]);
+      setCourses([...courses, { ...card, quantity: 1 }]);
       }
       handleAddCredit(card)
       handleAddPrices(card);
     }
     else{
+      
       toast.warning("Already Added");
     }
   }
   const handleAddPrices = price =>{
     const newPrice = prices + parseInt(price.price)
-    if(prices < 4){
+    if(prices <= 4 ){
       setPrices(newPrice)
-    }
-  }
-  const defaultHour = 20;
-  const handleAddCredit = credit =>{
-    const newCredit = credits + parseInt(credit.credit_hour)
-    if(newCredit <= 20){
-      setCredits(newCredit)
-    }
-    if(newCredit <= 20 && newCredit >= 0){
-      let newCredits = defaultHour - newCredit
-      setRemains(newCredits)
-      
-    }
-    else{
-      setRemains(0);
-      toast.error(`Can't Added Credit`);
     }
   }
   return (
